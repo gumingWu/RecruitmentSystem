@@ -1,5 +1,6 @@
 package com.recruit.server;
 
+import com.recruit.server.model.Study.Person;
 import com.recruit.server.util.myStringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -10,12 +11,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class ServerApplicationTests {
+    @Autowired
+    private Person person;
 
     @Test
     void contextLoads() {
         int[] array = {1,2,3,4,5,6};
         String res = myStringUtils.printArray(array);
         System.out.println(res);
+    }
+
+    @Test
+    void secondTest(){
+        System.out.println(person.toString());
     }
 
 }
