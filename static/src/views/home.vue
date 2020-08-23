@@ -1,7 +1,6 @@
 <template>
     <div>
-        <h1>这是首页</h1>
-        <el-button type="primary">按钮</el-button>
+        <h1>这是用户主页</h1>
     </div>
 </template>
 
