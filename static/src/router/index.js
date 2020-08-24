@@ -7,13 +7,29 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path:'/',
+      redirect:'intro/introhome',
     },
     {
-      path:'/',
-      component:()=>import("../views/introduce")
+      path:'/intro',
+      component:()=>import("../views/introduce"),
+      children:[
+        {
+          path:'introhome', 
+          name:'introhome',
+          component:()=>import("../views/introduce/introhome")
+        },
+        { 
+          path:'company',
+          name:'company',
+          component:()=>import("../views/introduce/company")
+        },
+        {
+          path:'school',
+          name:'school',
+          component:()=>import("../views/introduce/school")
+        }
+      ],
     }
   ]
 })
