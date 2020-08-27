@@ -30,6 +30,14 @@ export default new Router({
           component:()=>import("../views/introduce/school")
         }
       ],
+    },
+    {
+      path:'/login',
+      component:()=>import("../views/login")
+    },
+    {
+      path:'/register',
+      component:()=>import("../views/login/register")
     }
   ]
 })
