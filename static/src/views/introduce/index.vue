@@ -42,7 +42,7 @@ export default {
             this.$router.push({name:'school'})
         },
         clickToLogin: function() {
-            this.$router.push('/login')
+            this.$router.push({name:'login'})
         },
     }
 }

@@ -32,12 +32,21 @@ export default new Router({
       ],
     },
     {
-      path:'/login',
-      component:()=>import("../views/login")
+      path:'/admin',
+      rdirect:'admin/login',
+      component:()=>import("@/views/admin"),
+      children:[
+        { 
+          path:'login',
+          name:'login',
+          component:()=>import("@/views/admin/login")
+        },
+        { 
+          path:'register',
+          name:'register',
+          component:()=>import("@/views/admin/register")
+        }
+      ]
     },
-    {
-      path:'/register',
-      component:()=>import("../views/login/register")
-    }
   ]
 })
