@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.server.mapper.AdminMapper">
+    <insert id="register" parameterType="com.recruit.server.dto.AdminDataParam">
+        INSERT INTO rs_login_data (telephone,username,password,email,createtime)
+        VALUES (#{telephone},#{username},#{password},#{email},#{createtime})
+    </insert>
+
+    <select id="selectSameAdmin" parameterType="String" resultType="com.recruit.server.model.Admin">
+        SELECT *
+        FROM rs_login_data
+        WHERE telephone=#{telephone}
+        OR email=#{email}
+    </select>
+</mapper>
