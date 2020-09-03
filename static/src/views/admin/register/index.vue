@@ -17,7 +17,7 @@
                 <el-input v-model="form.sec_password" placeholder="请输入密码" ></el-input>
             </el-form-item>
             <el-form-item style="text-align: center" label-width="0">
-                <el-button type="primary" style="width:45%">确认</el-button>
+                <el-button type="primary" style="width:45%" @click="handleRegister">确认</el-button>
                 <el-button style="width:45%">重置</el-button>
             </el-form-item>
         </el-form>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {register} from '@/api/admin'
 export default {
     data () {
         return{
@@ -35,6 +36,18 @@ export default {
                 password:'',
                 sec_password:'',
             }
+        }
+    },
+    methods: {
+        async handleRegister(){
+            let data = {
+                'username': this.form.name,
+                'telephone': this.form.telephone,
+                'email': this.form.email,
+                'password': this.form.password
+            }
+            const res = await register(data)
+            console.log(res)
         }
     }
 }

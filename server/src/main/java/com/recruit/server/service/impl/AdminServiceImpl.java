@@ -30,7 +30,6 @@ public class AdminServiceImpl implements AdminService {
         }
         // 对密码加密
         String encodePwd = passwordEncoder.encode(request.getPassword());
-//        String encodePwd = request.getPassword();
         request.setPassword(encodePwd);
         int flag = adminMapper.register(request);
         if (flag<=0){
