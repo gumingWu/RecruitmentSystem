@@ -1,9 +1,11 @@
 package com.recruit.server.service.impl;
 
 import com.recruit.server.dto.AdminDataParam;
+import com.recruit.server.exception.RecruitException;
 import com.recruit.server.mapper.AdminMapper;
 import com.recruit.server.model.Admin;
 import com.recruit.server.service.AdminService;
+import com.recruit.server.util.ErrCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
         // 先检查是否已存在用户
         List<Admin> sameAdmin = adminMapper.selectSameAdmin(request);
         if (sameAdmin.size()!=0){
-            return false;
+            throw new RecruitException(ErrCode.SameAdmin);
         }
         // 对密码加密
         String encodePwd = passwordEncoder.encode(request.getPassword());

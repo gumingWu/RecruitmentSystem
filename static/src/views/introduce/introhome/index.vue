@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-image :src="require('../../../assets/images/introduce001.jpg')" fit="fill"></el-image>
+        <img src="@/assets/images/back03.jpeg" style="width:100%; height:100%;">
     </div>
 </template>
 

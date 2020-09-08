@@ -1,6 +1,7 @@
 package com.recruit.server.controller;
 
 import com.recruit.server.dto.AdminDataParam;
+import com.recruit.server.exception.RecruitException;
 import com.recruit.server.service.AdminService;
 import com.recruit.server.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,13 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping("/register")
-    public JsonResponse register(@RequestBody AdminDataParam request){
-        try {
+    public JsonResponse register(@RequestBody AdminDataParam request) throws RecruitException  {
+
             boolean flag = adminService.register(request);
             if (!flag){
                 return JsonResponse.error();
             }
             return JsonResponse.success();
-        } catch (Exception e){
-            String mes = e.getMessage();
-            return JsonResponse.error();
-        }
+
     }
 }
