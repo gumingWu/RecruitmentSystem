@@ -52,6 +52,8 @@ export default {
             } else {
                 if(value!==this.form.password){
                     callback(new Error("与第一次输入的不相同"))
+                } else {
+                    callback()
                 }
             }
         };
@@ -88,24 +90,34 @@ export default {
     },
     methods: {
         async handleRegister(){
-            let data = {
-                'username': this.form.username,
-                'telephone': this.form.telephone,
-                'email': this.form.email,
-                'password': this.form.password
-            }
-            // const res = await register(data)
-            // console.log(res)
-            await register(data).then((res) =>{
-                console.log(res)
+            // this.$refs['form'].validate(async valid => {
+            //     console.log(valid)
+            // })
+            this.$refs['form'].validate(async valid => {
+                if(valid){
+                    let data = {
+                        'username': this.form.username,
+                        'telephone': this.form.telephone,
+                        'email': this.form.email,
+                        'password': this.form.password
+                    }
+                    
+                    await register(data).then((res) =>{
+                        if(res.data.errCode==='ERR02'){
+                            this.$message({
+                                message: '该账户已注册',
+                                type: 'error'
+                            })
+                        }
+                    })
+                }
             })
-            }
         },
 
         handleResetForm(formname) {
             this.$refs[formname].resetFields()
         }
-    
+    }
 }
 </script>
 
