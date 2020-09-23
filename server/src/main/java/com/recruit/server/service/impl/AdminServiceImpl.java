@@ -4,8 +4,10 @@ import com.recruit.server.dto.AdminDataParam;
 import com.recruit.server.exception.RecruitException;
 import com.recruit.server.mapper.AdminMapper;
 import com.recruit.server.model.Admin;
+import com.recruit.server.service.AdminCacheService;
 import com.recruit.server.service.AdminService;
 import com.recruit.server.util.ErrCode;
+import com.recruit.server.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
+
+    @Autowired
+    private AdminCacheService adminCacheService;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Override
     public boolean register(AdminDataParam request) {
@@ -38,5 +46,33 @@ public class AdminServiceImpl implements AdminService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String login(AdminDataParam request) {
+        String token = null;
+        try {
+            Admin admin = getAdminByTelOrEmail(request);
+            if (!passwordEncoder.matches(request.getPassword(), admin.getPassword())){
+                throw new RecruitException(ErrCode.ErrorPassWord);
+            }
+            token = jwtUtils.generateTokenByAdmin(admin);
+            return token;
+        } catch (Exception e){
+            throw new RecruitException(ErrCode.ERROR.getErrCode(), e.getMessage());
+        }
+    }
+
+    private Admin getAdminByTelOrEmail(AdminDataParam request){
+        Admin admin = null;
+        admin = adminCacheService.getRedisAdmin(request.getTelephone(), request.getEmail());
+        if (admin != null){
+            return admin;
+        }
+        admin = adminMapper.selectSameAdmin(request).get(0);
+        if (admin != null){
+            adminCacheService.setRedisAdmin(admin);
+        }
+        return admin;
     }
 }

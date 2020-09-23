@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.recruit.server.service.AdminCacheService;
 import com.recruit.server.service.RedisService;
+import com.recruit.server.service.impl.AdminCacheServiceImpl;
 import com.recruit.server.service.impl.RedisServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,5 +49,10 @@ public class RedisConfig {
     @Bean
     public RedisService redisService(){
         return new RedisServiceImpl();
+    }
+
+    @Bean
+    public AdminCacheService adminCacheService(){
+        return new AdminCacheServiceImpl();
     }
 }

@@ -13,4 +13,5 @@
         WHERE telephone=#{telephone}
         OR email=#{email}
     </select>
+
 </mapper>

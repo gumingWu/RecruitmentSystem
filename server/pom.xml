@@ -64,6 +64,14 @@
             <version>2.3.4.RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+
 
         <!--        导入配置文件处理器-->
         <dependency>

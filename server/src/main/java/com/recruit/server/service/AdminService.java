@@ -8,4 +8,9 @@ public interface AdminService {
      * @return
      */
     public boolean register(AdminDataParam request);
+
+    /**
+     * 用户登录
+     */
+    public String login(AdminDataParam request);
 }
